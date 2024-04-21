@@ -132,7 +132,8 @@ docker run --name <new-container-name> -d <image-name>
 ```
 
 - -p : publish a container's port(s) to the host
-    - There are different default ports for different applications. For example, postgres default port is 5432. But, when we are spinning up multiple containers of the same image they should have different ports instead of the default port to avoid port conflicts.
+    - There are different default ports for different applications. For example, postgres default port is 5432. But, when we are spinning up multiple containers of the same image they should have different ports instead of the default port to avoid port conflicts. 
+    - We need to map the container's port into a port in the host machine.
 ```sh
 docker run -d -p <host-port>:<container-port> --name <container-name> <image-name>
 ```
@@ -171,10 +172,42 @@ docker rm <container-name>
 ```sh
 docker container rm <container-name>
 ```
+```sh
+docker container remove <container-name>
+```
+
+### Removing a image
+```sh
+docker rmi <image-name>
+```
+```sh
+docker image rm <image-name>
+```
+```sh
+docker image remove <image-name>
+```
+
+### Removing a volume
+```sh
+docker volume rm <image-name>
+```
+```sh
+docker volume remove <image-name>
+```
 
 ### Remove all stopped containers
 ```sh
 docker container prune
+```
+
+### Remove unused images
+```sh
+docker image prune
+```
+
+### Remove unused local volumes
+```sh
+docker volume prune
 ```
 
 ### Clean up all unused containers, images, volumes etc.
