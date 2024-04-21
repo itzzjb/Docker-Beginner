@@ -120,7 +120,7 @@ docker ps -a
 docker container ls -a
 ```
 
-### Running a image in a container
+### Creating a container and Running an image
 
 > [!CAUTION]
 > We can't have two containers with the same container name. Either you have to remove or rename the previous container to use the same name.
@@ -146,7 +146,7 @@ docker run -d -p <host-port>:<container-port> --name <container-name> <image-nam
 
 - For example when we need to run a postgres image in a container we need to pass some environment variables (-e) too.
     ```sh
-        docker run --name <name> -e POSTGRES_PASSWORD=<password> -d postgres
+        docker run --name <name> -e POSTGRES_PASSWORD=mysecretpassword -d postgres
     ```
 
 ### Stopping a running container
@@ -164,6 +164,14 @@ docker container stop <container-ID>
 ```
 > [!NOTE]
 > As long as another container doesn't have the same initial letters as a container, we can use first few initial letters without using the whole ID.
+
+### Restart a container 
+```sh
+docker restart <container-name> 
+```
+```sh
+docker container restart <container-name>
+```
 
 ### Removing a container
 ```sh
@@ -210,10 +218,37 @@ docker image prune
 docker volume prune
 ```
 
-### Clean up all unused containers, images, volumes etc.
+### Clean up all unused containers, images, volumes, networks etc.
 ```sh
 docker system prune
 ```
+
+### Docker Logs
+```sh
+docker logs <container-name>
+```
+> [!NOTE]
+> There are multiple options for logs like `--details`, `--follow` and `--since` etc. 
+
+## Connecting multiple containers
+
+### Docker networks base command ( shows the commands list )
+```sh
+docker network
+```
+> [!NOTE]
+> You can create , connect , disconnect and prune networks using `docker network` commands.
+
+### Creating a network while creating a container and running an image.
+
+> [!IMPORTANT]
+> Here, we are trying to connect a mongo container with a mongo-express container.
+> Mongo-express image is a Web-based MongoDB admin interface, written with Node.js and express. This is a pre-build image that we can get from the docker-hub.
+> We can spin up two containers each of them running mongo image and mongo-express image and try to create a network between them.
+> Both, containers must be in the same network in order to work.
+> You can connect your own applications that are running in containers to the mongo container just like this too.
+
+
 
 
 
