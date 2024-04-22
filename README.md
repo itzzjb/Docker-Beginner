@@ -244,9 +244,9 @@ docker network
 docker network ls
 ```
 
-## Connecting to a network while creating a container and running an image.
+# Multicontainer Applications
 
-### Using CLI Commands
+## Using CLI Commands
 
 Here, we are trying to connect a mongo container with a mongo-express container.
 
@@ -290,9 +290,22 @@ docker run -d \
 > [!NOTE]
 > Here, we are giving a host port that is same as the container port beacuse we are trying to connect the mongo container to a pre-build mongo-express container which might be connected using the mongo default port 27017. Also we need to pass inthrough multiple environment variables inorder to initialize a mongodb. Same goes to mongo-express on 8081 port.
 
-### Docker Compose
+## Docker Compose
 
 By using docker compose we can spin up multiple docker containers at the same time using docker files.
+
+### Docker compose base command ( shows the commands list )
+```sh
+docker compose
+```
+
+We need to create a docker-compose.yaml file. 
+
+> [!NOTE]
+> If you want you can call this file any name. But this is the standard.
+
+> [!CAUTION]
+> The information about docker compose are in the docker-compose.yaml file.
 
 
 

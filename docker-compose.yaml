@@ -1,0 +1,42 @@
+# First of all we need to have the version of the docker-compose file
+version: '3'
+
+# Then we need to define the services that we are going to use
+# Services are the containers that we are going to use
+services:
+  # Container/Service 01 - mongodb
+  mongodb:
+    # We can define the image that we are going to use. 
+    # Can specify the version user (mongo:version) if want too.
+    image: mongo
+    ports: 
+      # We can define the ports that we are going to use
+      # Hostport : Containerport
+      # This is in a array format
+      - "27017:27017"
+    environment:
+      # We can define the environment variables that we are going to use
+      # This is in a array format
+      - MONGO_INITDB_ROOT_USERNAME = admin
+      - MONGO_INITDB_ROOT_PASSWORD = password
+
+
+    # Container/Service 02 - mongo-express
+  mongo-express:
+    image: mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME = admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD = password
+      - ME_CONFIG_MONGODB_SERVER = mongodb
+    
+
+# We can define the networks that we are going to use here
+# When we are creating a docker-compose file, it creates a network for us
+# And puts all the containers in that network
+# But if you want you can give a custom name to the network
+networks:
+
+
+  
