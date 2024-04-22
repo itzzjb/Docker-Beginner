@@ -125,13 +125,13 @@ docker container ls -a
 > [!CAUTION]
 > We can't have two containers with the same container name. Either you have to remove or rename the previous container to use the same name.
 
-- -d : run container in background and print container ID (detach mode)
+- `-d` : run container in background and print container ID (detach mode)
     - Otherwise if the container runs in the terminal, when we close the terminal it will stop. We won't be able to use the terminal while the container when the container is running if not for -d 
 ```sh
 docker run --name <new-container-name> -d <image-name> 
 ```
 
-- -p : publish a container's port(s) to the host
+- `-p` : publish a container's port(s) to the host
     - There are different default ports for different applications. For example, postgres default port is 5432. But, when we are spinning up multiple containers of the same image they should have different ports instead of the default port to avoid port conflicts. 
     - We need to map the container's port into a port in the host machine.
 ```sh
@@ -239,14 +239,64 @@ docker network
 > [!NOTE]
 > You can create , connect , disconnect and prune networks using `docker network` commands.
 
-### Creating a network while creating a container and running an image.
+### Getting a list of all networks
+```sh
+docker network ls
+```
 
+## Connecting to a network while creating a container and running an image.
+
+### Using CLI Commands
+
+Here, we are trying to connect a mongo container with a mongo-express container.
+
+Mongo-express image is a Web-based MongoDB admin interface, written with Node.js and express. This is a pre-build image that we can get from the docker-hub.
+
+We can spin up two containers each of them running mongo image and mongo-express image and try to create a network between them.
+
+Both, containers must be in the same network in order to work.
+
+You can connect your own applications that are running in containers to the mongo container just like this too.
+
+We need to create a network first.
+```sh
+docker network create mongo-network
+```
 > [!IMPORTANT]
-> Here, we are trying to connect a mongo container with a mongo-express container.
-> Mongo-express image is a Web-based MongoDB admin interface, written with Node.js and express. This is a pre-build image that we can get from the docker-hub.
-> We can spin up two containers each of them running mongo image and mongo-express image and try to create a network between them.
-> Both, containers must be in the same network in order to work.
-> You can connect your own applications that are running in containers to the mongo container just like this too.
+> When you are pasing multiple environment variables into a `docker run` command you need to use `-e` multiple times as above.
+
+Then, we are creating a mongo container and add the network to it. (using `--net`)
+``` sh
+docker run -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=password --name mongodb --net mongo-network -d mongo
+```
+
+Now, we need to create the mongo-express container in the same network as the mongo container.
+> [!NOTE]
+> You can use `\` in the terminal inorder to go to the next line or the terminal without terminating the currently writing command.
+
+```sh
+docker run -d \
+> -p 8081:8081 \
+> -e ME_CONFIG_MONGODB_ADMINUSERNAME=admin \
+> -e ME_CONFIG_MONGODB_PASSWORD=password \
+> -e ME_CONFIG_MONGODB_SERVER=mongodb \
+> --net mongo-network \
+> --name mongo-express \
+> mongo-express
+```
+> [!CAUTION]
+> The `ME_CONFIG_MONGODB_SERVER` is very important here. We need to give the same name we gave to container that runs the mongo image. (mongodb)
+
+> [!NOTE]
+> Here, we are giving a host port that is same as the container port beacuse we are trying to connect the mongo container to a pre-build mongo-express container which might be connected using the mongo default port 27017. Also we need to pass inthrough multiple environment variables inorder to initialize a mongodb. Same goes to mongo-express on 8081 port.
+
+### Docker Compose
+
+By using docker compose we can spin up multiple docker containers at the same time using docker files.
+
+
+
+
 
 
 
