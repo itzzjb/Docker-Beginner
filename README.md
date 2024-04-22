@@ -304,7 +304,7 @@ We need to create a docker-compose.yaml file.
 > [!NOTE]
 > If you want you can call this file any name. But this is the standard.
 
-> [!IMPORTANT]
+> [!TIP]
 > Refer to the docker-compose.yaml file.
 
 ### Using a docker-compose file to create containers
@@ -313,6 +313,38 @@ We need to create a docker-compose.yaml file.
 ```sh
 docker compose -f <file-name> up
 ```
+
+>[!IMPORTANT]
+> **Dockerfiles are used to build Docker images, docker-compose files are used to define and manage multi-container Docker applications, providing a higher level of abstraction for container orchestration and management**
+
+## Deploying a application using Docker (Python Flask)
+
+We need to create a Dockerfile file here. 
+
+> [!TIP]
+> Refer to the Flash App Deployment folder.
+
+### Build a image from a Dockerfile and push it into dockerhub
+
+First we are going to build the image from the Dockerfile
+
+`-t` : Username of the docker hub
+
+:0.0.1.RELEASE : This is to indicate the version of the image (You can use latest or just ignore the version aswell)
+
+>[!CAUTION]
+> Remember to add the . at the end. That indicated that the image is build according to the Dockerfile in the current directory.
+
+```sh
+docker build -t itzzjb/hey-python-flask:0.0.1.RELEASE .
+```
+
+Then we need to check whether the image can be run properly. Just create a basic container to check.
+
+```sh
+docker container run -d -p 3000:3000 itzzjb/hey-python-flask:0.0.1.RELEASE
+```
+
 
 
 

@@ -1,3 +1,5 @@
+# docker-compose.yaml is a file that is used to run multiple containers at the same time
+
 # First of all we need to have the version of the docker-compose file
 version: '3.0'
 
