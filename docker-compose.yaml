@@ -1,5 +1,5 @@
 # First of all we need to have the version of the docker-compose file
-version: '3'
+version: '3.0'
 
 # Then we need to define the services that we are going to use
 # Services are the containers that we are going to use
@@ -19,24 +19,52 @@ services:
       # This is in a array format
       - MONGO_INITDB_ROOT_USERNAME = admin
       - MONGO_INITDB_ROOT_PASSWORD = password
+    volumes:
+      # /data/db is the default directory where mongodb stores its data
+      # This changes when it comes to postgers, mysql etc.
+      - mongo-data:/data/db
 
 
     # Container/Service 02 - mongo-express
   mongo-express:
     image: mongo-express
+    # By giving the restart: always, it will restart the container if it crashes
+    # Until mongo-express container finds mongodb container and connects with it, it will keep on restarting
+    restart: always
     ports:
       - "8081:8081"
     environment:
       - ME_CONFIG_MONGODB_ADMINUSERNAME = admin
       - ME_CONFIG_MONGODB_ADMINPASSWORD = password
       - ME_CONFIG_MONGODB_SERVER = mongodb
-    
+
 
 # We can define the networks that we are going to use here
 # When we are creating a docker-compose file, it creates a network for us
 # And puts all the containers in that network
 # But if you want you can give a custom name to the network
 networks:
+  # Network 01 - mongo-network
+  mongo-network:
+    driver: bridge
 
+# We can define the volumes that we are going to use here
+# When we are creating a docker-compose file, it creates a volume for us
+# And puts all the containers in that volume
+# But if you want you can give a custom name to the volume
+
+# When we create a volume , it will stay regardless of the container
+# Even if the container is deleted, the volume will stay
+# So, the data will be presistent
+volumes:
+  # Volume 01 - mongo-data
+  mongo-data:
+    driver: local
+
+# Also by this you will be able to use the same containers with different volumes
+# So, you can have multiple databases with the same containers
+
+
+# ctrl + c to stop the containers from the terminal
 
   

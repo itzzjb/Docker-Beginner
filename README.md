@@ -304,8 +304,17 @@ We need to create a docker-compose.yaml file.
 > [!NOTE]
 > If you want you can call this file any name. But this is the standard.
 
-> [!CAUTION]
-> The information about docker compose are in the docker-compose.yaml file.
+> [!IMPORTANT]
+> Refer to the docker-compose.yaml file.
+
+### Using a docker-compose file to create containers
+> [!WARNING]
+> You need to be in the same directory as the docker-compose file in order to run this command.
+```sh
+docker compose -f <file-name> up
+```
+
+
 
 
 
