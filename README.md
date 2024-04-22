@@ -333,13 +333,13 @@ First we are going to build the image from the `Dockerfile`
 :0.0.1.RELEASE : This is to indicate the version of the image (You can use latest or just ignore the version aswell)
 
 >[!CAUTION]
-> Remember to add the . at the end. That indicated that the image is build according to the Dockerfile in the current directory.
+> Remember to add the . at the end. That indicated that the image is build according to the Dockerfile in the current directory. (In docker we do not refer to current directoty as ./ it is only .)
 
 ```sh
 docker build -t itzzjb/hey-python-flask:0.0.1.RELEASE .
 ```
 
-Then we need to check whether the image can be run properly. Just create a basic container to check.
+Then we need to check whether the image can be ran properly. Just create a basic container to check.
 
 ```sh
 docker container run -d -p 3000:3000 itzzjb/hey-python-flask:0.0.1.RELEASE
@@ -356,8 +356,6 @@ We need to create a `Dockerfile` file here.
 
 > [!TIP]
 > Refer to the NodeJs-API-Deployment folder.
-
-### Build a image from a Dockerfile and push it into dockerhub
 
 First, we need to initialize the NodeJs Project. This generates the `package.json` file.
 
@@ -382,11 +380,62 @@ We used that to create the api program we wrote in `index.js` file.
 npm install express
 ```
 
+> [!NOTE]
+> We get the node_modules file as a result of the above command.
+
 You can check whether the  application is working by,
 
 ```sh
 node index.js
 ```
+
+### Build a image from a Dockerfile and push it into dockerhub
+
+First we are going to build the image from the `Dockerfile`
+
+`-t` : Username of the docker hub
+
+:0.0.1.RELEASE : This is to indicate the version of the image (You can use latest or just ignore the version aswell)
+
+>[!CAUTION]
+> Remember to add the . at the end. That indicated that the image is build according to the Dockerfile in the current directory. (In docker we do not refer to current directoty as ./ it is only .)
+
+```sh
+docker build -t itzzjb/hey-nodejs:0.0.1.RELEASE .
+```
+
+Then we need to check whether the image can be ran properly. Just create a basic container to check.
+
+```sh
+docker container run -d -p 3000:3000 itzzjb/hey-nodejs:0.0.1.RELEASE
+```
+
+Now, we know that the image is working as expected. So, we can push it to the dockerhub.
+```sh
+docker push itzzjb/hey-nodejs:0.0.1.RELEASE
+```
+
+# My pushed images from Dockerhub
+
+The images that we build and pulled into the docker hub, can be now pulled by any one, any where from any device.
+
+```sh
+docker pull itzzjb/hey-python-flask:0.0.1.RELEASE
+```
+```sh
+docker pull itzzjb/hey-nodejs:0.0.1.RELEASE
+```
+
+We can use the following links to push new versions in the future.
+
+```sh
+docker push itzzjb/hey-python-flask:tagname
+```
+```sh
+docker push itzzjb/hey-nodejs:tagname
+```
+
+
 
 
 
