@@ -244,7 +244,7 @@ docker network
 docker network ls
 ```
 
-# Multicontainer Applications
+# Multi-container Applications
 
 ## Using CLI Commands
 
@@ -263,7 +263,7 @@ We need to create a network first.
 docker network create mongo-network
 ```
 > [!IMPORTANT]
-> When you are pasing multiple environment variables into a `docker run` command you need to use `-e` multiple times as above.
+> When you are passing multiple environment variables into a `docker run` command you need to use `-e` multiple times as above.
 
 Then, we are creating a mongo container and add the network to it. (using `--net`)
 ``` sh
@@ -272,7 +272,7 @@ docker run -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_RO
 
 Now, we need to create the mongo-express container in the same network as the mongo container.
 > [!NOTE]
-> You can use `\` in the terminal inorder to go to the next line or the terminal without terminating the currently writing command.
+> You can use `\` in the terminal in order to go to the next line or the terminal without terminating the currently writing command.
 
 ```sh
 docker run -d \
@@ -288,7 +288,7 @@ docker run -d \
 > The `ME_CONFIG_MONGODB_SERVER` is very important here. We need to give the same name we gave to container that runs the mongo image. (mongodb)
 
 > [!NOTE]
-> Here, we are giving a host port that is same as the container port beacuse we are trying to connect the mongo container to a pre-build mongo-express container which might be connected using the mongo default port 27017. Also we need to pass inthrough multiple environment variables inorder to initialize a mongodb. Same goes to mongo-express on 8081 port.
+> Here, we are giving a host port that is same as the container port because we are trying to connect the mongo container to a pre-build mongo-express container which might be connected using the mongo default port 27017. Also we need to pass in through multiple environment variables in order to initialize a mongodb. Same goes to mongo-express on 8081 port.
 
 ## Docker Compose
 
@@ -315,7 +315,7 @@ docker compose -f <file-name> up
 ```
 
 >[!IMPORTANT]
-> **Dockerfiles are used to build Docker images, docker-compose files are used to define and manage multi-container Docker applications, providing a higher level of abstraction for container orchestration and management**
+> **Dockerfile files are used to build Docker images, docker-compose files are used to define and manage multi-container Docker applications, providing a higher level of abstraction for container orchestration and management**
 
 ## Deploying a application using Docker (Python Flask)
 
@@ -324,16 +324,16 @@ We need to create a `Dockerfile` file here.
 > [!TIP]
 > Refer to the Flask-App-Deployment folder.
 
-### Build a image from a Dockerfile and push it into dockerhub
+### Build a image from a Dockerfile and push it into docker hub
 
 First we are going to build the image from the `Dockerfile`
 
 `-t` : Username of the docker hub
 
-:0.0.1.RELEASE : This is to indicate the version of the image (You can use latest or just ignore the version aswell)
+:0.0.1.RELEASE : This is to indicate the version of the image (You can use latest or just ignore the version as well)
 
 >[!CAUTION]
-> Remember to add the . at the end. That indicated that the image is build according to the Dockerfile in the current directory. (In docker we do not refer to current directoty as ./ it is only .)
+> Remember to add the . at the end. That indicated that the image is build according to the Dockerfile in the current directory. (In docker we do not refer to current directory as ./ it is only .)
 
 ```sh
 docker build -t itzzjb/hey-python-flask:0.0.1.RELEASE .
@@ -345,7 +345,7 @@ Then we need to check whether the image can be ran properly. Just create a basic
 docker container run -d -p 3000:3000 itzzjb/hey-python-flask:0.0.1.RELEASE
 ```
 
-Now, we know that the image is working as expected. So, we can push it to the dockerhub.
+Now, we know that the image is working as expected. So, we can push it to the docker hub.
 ```sh
 docker push itzzjb/hey-python-flask:0.0.1.RELEASE
 ```
@@ -373,7 +373,7 @@ Then, do the following changes in `package.json` file.
 
 Now, create a `index.js` file in the same directory. Write the program you need to write there.
 
-After that, we need to install **Expressjs** (This helps to quickly create rest apis).
+After that, we need to install **Express Js** (This helps to quickly create rest apis).
 We used that to create the api program we wrote in `index.js` file.
 
 ```sh
@@ -389,16 +389,16 @@ You can check whether the  application is working by,
 node index.js
 ```
 
-### Build a image from a Dockerfile and push it into dockerhub
+### Build a image from a Dockerfile and push it into docker hub
 
 First we are going to build the image from the `Dockerfile`
 
 `-t` : Username of the docker hub
 
-:0.0.1.RELEASE : This is to indicate the version of the image (You can use latest or just ignore the version aswell)
+:0.0.1.RELEASE : This is to indicate the version of the image (You can use latest or just ignore the version as well)
 
 >[!CAUTION]
-> Remember to add the . at the end. That indicated that the image is build according to the Dockerfile in the current directory. (In docker we do not refer to current directoty as ./ it is only .)
+> Remember to add the . at the end. That indicated that the image is build according to the Dockerfile in the current directory. (In docker we do not refer to current directory as ./ it is only .)
 
 ```sh
 docker build -t itzzjb/hey-nodejs:0.0.1.RELEASE .
@@ -410,12 +410,12 @@ Then we need to check whether the image can be ran properly. Just create a basic
 docker container run -d -p 3000:3000 itzzjb/hey-nodejs:0.0.1.RELEASE
 ```
 
-Now, we know that the image is working as expected. So, we can push it to the dockerhub.
+Now, we know that the image is working as expected. So, we can push it to the docker hub.
 ```sh
 docker push itzzjb/hey-nodejs:0.0.1.RELEASE
 ```
 
-# My pushed images from Dockerhub
+# My pushed images from Docker hub
 
 The images that we build and pulled into the docker hub, can be now pulled by any one, any where from any device.
 
