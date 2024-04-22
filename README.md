@@ -299,17 +299,17 @@ By using docker compose we can spin up multiple docker containers at the same ti
 docker compose
 ```
 
-We need to create a docker-compose.yaml file. 
+We need to create a `docker-compose.yaml` file. 
 
 > [!NOTE]
 > If you want you can call this file any name. But this is the standard.
 
 > [!TIP]
-> Refer to the docker-compose.yaml file.
+> Refer to the `docker-compose.yaml` file.
 
 ### Using a docker-compose file to create containers
 > [!WARNING]
-> You need to be in the same directory as the docker-compose file in order to run this command.
+> You need to be in the same directory as the `docker-compose.yaml` file in order to run this command.
 ```sh
 docker compose -f <file-name> up
 ```
@@ -319,14 +319,14 @@ docker compose -f <file-name> up
 
 ## Deploying a application using Docker (Python Flask)
 
-We need to create a Dockerfile file here. 
+We need to create a `Dockerfile` file here. 
 
 > [!TIP]
-> Refer to the Flash App Deployment folder.
+> Refer to the Flask-App-Deployment folder.
 
 ### Build a image from a Dockerfile and push it into dockerhub
 
-First we are going to build the image from the Dockerfile
+First we are going to build the image from the `Dockerfile`
 
 `-t` : Username of the docker hub
 
@@ -344,6 +344,60 @@ Then we need to check whether the image can be run properly. Just create a basic
 ```sh
 docker container run -d -p 3000:3000 itzzjb/hey-python-flask:0.0.1.RELEASE
 ```
+
+Now, we know that the image is working as expected. So, we can push it to the dockerhub.
+```sh
+docker push itzzjb/hey-python-flask:0.0.1.RELEASE
+```
+
+## Deploying a application using Docker (NodeJs API)
+
+We need to create a `Dockerfile` file here. 
+
+> [!TIP]
+> Refer to the NodeJs-API-Deployment folder.
+
+### Build a image from a Dockerfile and push it into dockerhub
+
+First, we need to initialize the NodeJs Project. This generates the `package.json` file.
+
+```sh
+npm init
+```
+
+Then, do the following changes in `package.json` file.
+
+```sh
+"scripts": {
+    "start": "node index.js"
+},
+```
+
+Now, create a `index.js` file in the same directory. Write the program you need to write there.
+
+After that, we need to install **Expressjs** (This helps to quickly create rest apis).
+We used that to create the api program we wrote in `index.js` file.
+
+```sh
+npm install express
+```
+
+You can check whether the  application is working by,
+
+```sh
+node index.js
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
